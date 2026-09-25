@@ -1,0 +1,390 @@
+/* ============================================================
+   HEADER — todas las clases prefijadas con "sh-"
+   Paleta Desidere: blanco / tinta #1a1a1a / dorado champagne
+   Comportamiento dropdowns: PC = solo hover | móvil = solo click
+   Logo: PC = wordmark tipográfico | móvil = imagen
+   ============================================================ */
+
+.site-header {
+  --sh-tinta: #1a1a1a;
+  --sh-dorado: #b49a5e;        /* champagne principal */
+  --sh-dorado-oscuro: #8f7440; /* para hover / texto dorado pequeño */
+  --sh-crema: #faf8f3;
+  --sh-borde-suave: #eee7da;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffffff;
+  border-bottom: 1px solid #e8e0d0;
+}
+
+.sh-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  min-height: 84px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+/* ---------- Navegación ---------- */
+
+.sh-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.sh-nav--left  { justify-content: flex-start; }
+.sh-nav--right { justify-content: flex-end; }
+
+.sh-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sh-tinta);
+  text-decoration: none;
+}
+
+/* Subrayado que crece desde el centro */
+.sh-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--sh-tinta);
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Hover y estado activo, ambos en dorado */
+.sh-link:hover::after,
+.sh-link.is-active::after {
+  transform: translateX(-50%) scaleX(1);
+  background: var(--sh-dorado);
+}
+/* En el dropdown abierto por hover, el subrayado también queda dorado */
+.sh-dd:hover .sh-dd__btn::after {
+  transform: translateX(-50%) scaleX(1);
+  background: var(--sh-dorado);
+}
+
+/* ---------- Logo: wordmark (PC) + imagen (móvil) ---------- */
+
+.sh-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 0;
+  text-decoration: none;
+}
+
+/* Por defecto (PC): se ve el texto, la imagen no */
+.sh-logo__texto {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+.sh-logo__img { display: none; }
+
+.sh-logo__nombre {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em; /* compensa el tracking para centrado óptico */
+  color: var(--sh-dorado-oscuro);
+  transition: letter-spacing 0.45s ease;
+}
+.sh-logo:hover .sh-logo__nombre {
+  letter-spacing: 0.34em;
+}
+.sh-logo__sub {
+  font-weight: 700;
+  font-size: 0.55rem;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-transform: uppercase;
+  color: var(--sh-tinta);
+}
+.sh-logo__sub em {
+  font-style: normal;
+  color: var(--sh-dorado);
+}
+/* Línea de acento que crece bajo el logo al pasar el cursor */
+.sh-logo::after {
+  content: '';
+  width: 0;
+  height: 1px;
+  margin-top: 2px;
+  background: var(--sh-dorado);
+  transition: width 0.45s ease;
+}
+.sh-logo:hover::after {
+  width: 56px;
+}
+
+/* ---------- Dropdowns ---------- */
+
+.sh-dd {
+  position: relative;
+}
+
+.sh-dd__chev {
+  transition: transform 0.3s ease;
+}
+
+.sh-dd__menu {
+  background: #ffffff;
+  border: 1px solid var(--sh-tinta);
+  min-width: 264px;
+  padding: 8px 0;
+  z-index: 20;
+}
+
+/* ============================================================
+   ESCRITORIO (>960px): el dropdown abre SOLO por hover.
+   No hay reglas .is-open acá a propósito: el click no
+   genera estado en PC, así nunca queda pegado.
+   ============================================================ */
+@media (min-width: 961px) {
+  .sh-dd__menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: -22px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    box-shadow: 0 18px 40px rgba(26, 26, 26, 0.12);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0s linear 0.25s;
+  }
+  /* Puente invisible: evita que el menú se cierre
+     al mover el cursor del botón hacia el panel */
+  .sh-dd__menu::before {
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    right: 0;
+    height: 18px;
+  }
+  .sh-dd:hover .sh-dd__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s;
+  }
+  /* Chevron gira mientras el dropdown está abierto por hover */
+  .sh-dd:hover .sh-dd__chev {
+    transform: rotate(180deg);
+  }
+}
+
+.sh-dd__item {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 12px 22px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--sh-tinta);
+  text-decoration: none;
+  transition: padding-left 0.25s ease, background 0.25s ease;
+}
+.sh-dd__item + .sh-dd__item {
+  border-top: 1px solid var(--sh-borde-suave);
+}
+.sh-dd__item:hover {
+  padding-left: 28px;
+  background: var(--sh-crema);
+}
+.sh-dd__num {
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: #9a938a;
+  transition: color 0.25s ease;
+}
+.sh-dd__item:hover .sh-dd__num,
+.sh-dd__item.is-active .sh-dd__num {
+  color: var(--sh-dorado);
+}
+
+/* ---------- Hamburguesa (solo móvil) ---------- */
+
+.sh-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.sh-burger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--sh-tinta);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.sh-burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.sh-burger.is-open span:nth-child(2) { opacity: 0; }
+.sh-burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- Panel móvil ---------- */
+
+.sh-mobile { display: none; }
+
+/* ============================================================
+   MÓVIL (<=960px): dropdowns por click (acordeón), estado
+   controlado con .is-open desde React. Logo por imagen.
+   ============================================================ */
+@media (max-width: 960px) {
+  .sh-inner {
+    min-height: 64px;
+    padding: 0 20px;
+  }
+
+  /* La nav izquierda desaparece y con ella su celda del grid.
+     Sin esto, logo y burger "suben" a las columnas 1 y 2 y el
+     logo queda pegado a la izquierda. Los fijamos a su lugar: */
+  .sh-nav--left { display: none; }
+  .sh-logo {
+    grid-column: 2;
+    justify-self: center;
+  }
+  .sh-nav--right {
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  .sh-nav--right .sh-link { display: none; }    /* oculto solo los links, el burger queda */
+  .sh-burger { display: flex; }
+
+  /* Logo: en móvil se invierte — imagen sí, texto no */
+  .sh-logo__texto { display: none; }
+  .sh-logo__img {
+    display: block;
+    height: 44px;
+    width: auto;
+  }
+  /* La línea de acento del wordmark no aplica a la imagen */
+  .sh-logo::after { display: none; }
+
+  .sh-mobile {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 24px;
+    transition: max-height 0.45s ease;
+  }
+  .sh-mobile.is-open {
+    max-height: 620px;
+    border-top: 1px solid var(--sh-tinta);
+  }
+
+  .sh-mobile .sh-dd,
+  .sh-mobile .sh-mobile__link {
+    border-bottom: 1px solid var(--sh-borde-suave);
+  }
+
+  .sh-mobile .sh-dd__btn {
+    width: 100%;
+    justify-content: space-between;
+    padding: 16px 0;
+    font-size: 0.85rem;
+  }
+
+  /* Chevron gira solo con el estado de click (móvil) */
+  .sh-dd.is-open .sh-dd__chev {
+    transform: rotate(180deg);
+  }
+
+  .sh-mobile .sh-dd__menu {
+    display: none;
+    border: none;
+    box-shadow: none;
+    padding: 0 0 10px;
+  }
+  .sh-mobile .sh-dd.is-open .sh-dd__menu {
+    display: block;
+    animation: shAparece 0.25s ease;
+  }
+
+  .sh-mobile .sh-dd__item {
+    padding: 11px 0 11px 18px;
+  }
+  .sh-mobile .sh-dd__item:hover {
+    padding-left: 24px;
+  }
+
+  .sh-mobile__link {
+    display: block;
+    padding: 16px 0;
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sh-tinta);
+    text-decoration: none;
+  }
+  .sh-mobile__link.is-active {
+    color: var(--sh-dorado);
+  }
+}
+
+@keyframes shAparece {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Accesibilidad: foco visible con el dorado de la marca */
+.sh-link:focus-visible,
+.sh-burger:focus-visible,
+.sh-dd__item:focus-visible,
+.sh-mobile__link:focus-visible,
+.sh-logo:focus-visible {
+  outline: 2px solid var(--sh-dorado);
+  outline-offset: 3px;
+}
+
+/* Respeto a usuarios con movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .sh-link,
+  .sh-link::after,
+  .sh-logo,
+  .sh-logo::after,
+  .sh-logo__nombre,
+  .sh-dd__chev,
+  .sh-dd__menu,
+  .sh-dd__item,
+  .sh-mobile,
+  .sh-burger span {
+    transition: none;
+    animation: none;
+  }
+}

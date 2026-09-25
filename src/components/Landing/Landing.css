@@ -1,0 +1,379 @@
+/* ============================================================
+   LANDING — prefijo "ld-"
+   Hero en columna única (PC y móvil): logo, buscador, texto.
+   Foto de fondo que cubre la primera pantalla y termina al
+   hacer scroll + tarjetas de tipos de evento + franja de cierre.
+   ============================================================ */
+
+.ld-hero {
+  --ld-tinta: #1a1a1a;
+  --ld-dorado: #b49a5e;
+  --ld-dorado-oscuro: #8f7440;
+  --ld-crema: #faf8f3;
+
+  position: relative;
+  /* Ocupa la primera pantalla entera (menos el header de 85px).
+     La foto "coincide" con la pantalla al cargar y al empezar a
+     bajar, la imagen termina acá. */
+  min-height: calc(100vh - 85px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: clip; /* nada de este hero puede generar scroll lateral */
+}
+
+/* ---------- Fondo fotográfico ---------- */
+
+.ld-hero__fondo {
+  position: absolute;
+  inset: 0;               /* ocupa todo el hero, ni un píxel más */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* cubre sin deformar: recorta lo que sobra */
+  object-position: center; /* el recorte queda centrado */
+  z-index: 0;
+}
+
+/* Velo crema translúcido sobre la foto: mantiene el texto legible
+   sin matar la imagen. Si la foto definitiva es oscura, bajá esta
+   opacidad (ej: 0.35); si es muy clara con mucho blanco, subila. */
+.ld-hero__velo {
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 248, 243, 0.55);
+  z-index: 0;
+}
+
+/* ---------- Contenido: columna única, centrada ---------- */
+
+.ld-hero__contenido {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ld-hero__logo {
+  display: block;
+  height: 170px;
+  width: auto;
+  max-width: 100%; /* nunca más ancho que su contenedor */
+  margin-bottom: 34px;
+  /* Sombra suave para que el monograma dorado destaque sobre la foto */
+  filter: drop-shadow(0 4px 14px rgba(26, 26, 26, 0.18));
+}
+
+/* ---------- Buscador ---------- */
+
+.ld-buscador {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--ld-dorado);
+  border-radius: 999px;
+  background: var(--ld-crema);
+  padding: 6px 6px 6px 26px;
+  min-height: 62px;
+  /* Sombra para separar el buscador del fondo fotográfico */
+  box-shadow: 0 10px 30px rgba(26, 26, 26, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+/* El foco se señala con el resplandor del pill, no con un
+   outline sobre el input */
+.ld-buscador:focus-within {
+  box-shadow:
+    0 0 0 3px rgba(180, 154, 94, 0.35),
+    0 10px 30px rgba(26, 26, 26, 0.12);
+}
+
+.ld-buscador__input {
+  flex: 1;
+  min-width: 0;        /* el input puede encoger dentro del flex */
+  width: 100%;
+  border: none;
+  outline: none;       /* sin recuadro de foco: lo aporta el :focus-within */
+  background: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ld-tinta);
+}
+/* Placeholder con menos contraste: es una sugerencia, no contenido */
+.ld-buscador__input::placeholder {
+  color: #8a8172;
+  opacity: 1;
+}
+.ld-buscador__input::-webkit-search-cancel-button {
+  -webkit-appearance: none; /* la lupa dorada ya es el botón de acción */
+}
+
+.ld-buscador__btn {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--ld-dorado);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.ld-buscador__btn:hover {
+  background: var(--ld-dorado-oscuro);
+  transform: scale(1.06);
+}
+
+.ld-buscador__ayuda {
+  margin: 14px 8px 0;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  color: #4a4438; /* más oscuro que el placeholder: flota sobre la foto */
+}
+
+/* ---------- Texto bajo el buscador ---------- */
+
+.ld-hero__texto {
+  margin: 34px 0 0;
+  max-width: 480px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--ld-tinta);
+  border-top: 1px solid var(--ld-dorado-oscuro);
+  padding-top: 26px;
+  
+}
+
+/* ============================================================
+   TIPOS DE EVENTO — tarjetas que llenan el landing
+   ============================================================ */
+
+.ld-tipos {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 32px 90px;
+  background: #ffffff;
+}
+
+.ld-tipos__titulo {
+  margin: 0 0 34px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  color: var(--ld-tinta);
+  text-align: center;
+}
+
+.ld-tipos__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.ld-tarjeta {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e8e0d0;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ld-tarjeta:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(26, 26, 26, 0.12);
+}
+
+/* Imagen por background: si el archivo no existe todavía,
+   se ve el fondo crema y no una imagen rota */
+.ld-tarjeta__img {
+  height: 180px;
+  background-color: var(--ld-crema);
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+.ld-tarjeta:hover .ld-tarjeta__img {
+  transform: scale(1.04);
+}
+
+.ld-tarjeta__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 24px 26px;
+}
+
+.ld-tarjeta__titulo {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.45rem;
+  color: var(--ld-dorado-oscuro);
+}
+
+.ld-tarjeta__texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #555555;
+}
+
+.ld-tarjeta__link {
+  margin-top: 8px;
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ld-tinta);
+  border-bottom: 1px solid var(--ld-dorado);
+  align-self: flex-start;
+  padding-bottom: 2px;
+  transition: color 0.3s ease;
+}
+.ld-tarjeta:hover .ld-tarjeta__link {
+  color: var(--ld-dorado-oscuro);
+}
+
+/* ============================================================
+   CIERRE — franja con propuesta de valor + CTA
+   ============================================================ */
+
+.ld-cierre {
+  background: var(--ld-crema);
+  border-top: 1px solid #e8e0d0;
+  padding: 80px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ld-cierre__frase {
+  margin: 0 0 30px;
+  max-width: 560px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  line-height: 1.5;
+  color: var(--ld-tinta);
+}
+
+.ld-cierre__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding: 13px 16px 13px 28px;
+  border: 1px solid var(--ld-dorado);
+  border-radius: 999px;
+  background: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--ld-tinta);
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.ld-cierre__cta::after {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ld-dorado);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.ld-cierre__cta:hover {
+  background: var(--ld-dorado);
+  color: #ffffff;
+}
+.ld-cierre__cta:hover::after {
+  transform: scale(1.15);
+}
+
+/* ---------- Accesibilidad ---------- */
+
+.ld-buscador__btn:focus-visible,
+.ld-tarjeta:focus-visible,
+.ld-cierre__cta:focus-visible {
+  outline: 2px solid var(--ld-dorado-oscuro);
+  outline-offset: 3px;
+}
+/* El input no lleva outline: el foco lo marca el resplandor
+   dorado del pill contenedor (.ld-buscador:focus-within) */
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 960px) {
+  .ld-hero {
+    /* Primera pantalla completa también en móvil (menos el
+       header de 61px) */
+    min-height: calc(100vh - 61px);
+  }
+
+  .ld-hero__contenido {
+    padding: 48px 20px 56px;
+  }
+
+  .ld-hero__logo {
+    height: 120px;
+    margin-bottom: 28px;
+  }
+
+  .ld-buscador {
+    min-height: 56px;
+    padding-left: 20px;
+  }
+  .ld-buscador__input {
+    font-size: 0.88rem;
+  }
+  .ld-buscador__btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Recorte de la foto centrado un poco más arriba en móvil:
+     suele ser donde está el sujeto interesante de la foto */
+  .ld-hero__fondo {
+    object-position: center 35%;
+  }
+
+  .ld-tipos {
+    padding: 0 20px 60px;
+  }
+  .ld-tipos__grid {
+    grid-template-columns: minmax(0, 1fr); /* tarjetas apiladas */
+    gap: 20px;
+  }
+  .ld-tarjeta__img {
+    height: 200px;
+  }
+
+  .ld-cierre {
+    padding: 56px 24px;
+  }
+}
+
+/* ---------- Respeto a movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-buscador,
+  .ld-buscador__btn,
+  .ld-tarjeta,
+  .ld-tarjeta__img,
+  .ld-cierre__cta,
+  .ld-cierre__cta::after {
+    transition: none;
+  }
+}
