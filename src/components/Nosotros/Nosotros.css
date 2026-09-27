@@ -1,0 +1,325 @@
+/* ============================================================
+   NOSOTROS — prefijo "ns-"
+   Cabecera + historia (texto/img) + pilares + cita + CTA.
+   ============================================================ */
+
+.ns-pagina {
+  --ns-tinta: #1a1a1a;
+  --ns-dorado: #b49a5e;
+  --ns-dorado-oscuro: #8f7440;
+  --ns-crema: #faf8f3;
+  --ns-borde: #e8e0d0;
+
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+
+/* ---------- Cabecera ---------- */
+
+.ns-cabecera {
+  max-width: 640px;
+  margin: 0 auto 70px;
+  text-align: center;
+}
+
+.ns-cabecera__etiqueta {
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  text-transform: uppercase;
+  color: var(--ns-dorado);
+}
+
+.ns-cabecera__titulo {
+  margin: 0 0 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.1;
+  color: var(--ns-tinta);
+}
+.ns-cabecera__titulo em {
+  font-style: normal;
+  color: var(--ns-dorado-oscuro);
+}
+
+.ns-cabecera__texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #555555;
+}
+
+/* ---------- Historia ---------- */
+
+.ns-historia {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 90px;
+}
+
+.ns-historia__texto-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ns-historia__titulo {
+  margin: 0 0 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  color: var(--ns-tinta);
+}
+
+.ns-historia__texto {
+  margin: 0 0 16px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: #555555;
+}
+.ns-historia__texto:last-child {
+  margin-bottom: 0;
+}
+
+/* Imagen opcional: si /nosotros/equipo.jpg no existe,
+   se ve el bloque crema con el monograma y no una imagen rota */
+.ns-historia__img {
+  height: 420px;
+  background-color: var(--ns-crema);
+  background-image: url('nosotros.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Si la imagen real existe, cubre el bloque entero
+   (la URL inline del JSX tiene prioridad sobre esta base) */
+.ns-historia__img[style*='equipo.jpg'] {
+  background-size: cover;
+  background-position: center;
+}
+
+/* ---------- Pilares ---------- */
+
+.ns-pilares {
+  margin-bottom: 90px;
+}
+
+.ns-pilares__titulo {
+  margin: 0 0 38px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  color: var(--ns-tinta);
+  text-align: center;
+}
+
+.ns-pilares__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.ns-pilar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px 28px;
+  border: 1px solid var(--ns-borde);
+  border-radius: 14px;
+  background: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ns-pilar:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(26, 26, 26, 0.1);
+}
+
+.ns-pilar__icono {
+  display: inline-flex;
+  color: var(--ns-dorado);
+  margin-bottom: 16px;
+}
+
+.ns-pilar__titulo {
+  margin: 0 0 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.45rem;
+  color: var(--ns-tinta);
+}
+
+.ns-pilar__texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.87rem;
+  line-height: 1.7;
+  color: #555555;
+}
+
+/* ---------- Cita ---------- */
+
+.ns-cita {
+  background: var(--ns-crema);
+  border-top: 1px solid var(--ns-borde);
+  border-bottom: 1px solid var(--ns-borde);
+  padding: 70px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 90px;
+  /* La cita rompe el ancho del contenedor para respirar */
+  margin-left: calc(-1 * (100vw - 100%) / 2 + 0px);
+  margin-right: calc(-1 * (100vw - 100%) / 2 + 0px);
+  width: calc(100% + (100vw - 100%));
+  max-width: none;
+}
+
+.ns-cita__frase {
+  margin: 0 0 18px;
+  max-width: 620px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  line-height: 1.45;
+  color: var(--ns-tinta);
+}
+
+.ns-cita__autor {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ns-dorado-oscuro);
+}
+
+/* ---------- CTA final ---------- */
+
+.ns-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ns-cta__texto {
+  margin: 0 0 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #555555;
+}
+
+.ns-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 11px 12px 11px 28px;
+  min-width: 240px;
+  border: 1px solid var(--ns-dorado);
+  border-radius: 999px;
+  background: var(--ns-dorado);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.ns-cta__btn:hover {
+  background: var(--ns-dorado-oscuro);
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.ns-cta__circulo {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--ns-dorado-oscuro);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.ns-cta__btn:hover .ns-cta__circulo {
+  transform: translateX(4px);
+}
+
+/* ---------- Accesibilidad ---------- */
+
+.ns-cta__btn:focus-visible {
+  outline: 2px solid var(--ns-dorado-oscuro);
+  outline-offset: 3px;
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 960px) {
+  .ns-pagina {
+    padding: 44px 20px 80px;
+  }
+  .ns-cabecera {
+    margin-bottom: 46px;
+  }
+
+  .ns-historia {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    margin-bottom: 60px;
+  }
+  /* En móvil la imagen va arriba del texto */
+  .ns-historia__img {
+    order: -1;
+    height: 240px;
+  }
+
+  .ns-pilares {
+    margin-bottom: 60px;
+  }
+  .ns-pilares__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .ns-cita {
+    padding: 52px 24px;
+    margin-bottom: 60px;
+    /* En móvil la cita NO rompe el contenedor */
+    margin-left: -20px;
+    margin-right: -20px;
+    width: calc(100% + 40px);
+  }
+
+  .ns-cta__btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ns-pilar,
+  .ns-cta__btn,
+  .ns-cta__circulo {
+    transition: none;
+  }
+}

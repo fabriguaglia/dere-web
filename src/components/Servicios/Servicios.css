@@ -1,0 +1,213 @@
+/* ============================================================
+   SERVICIOS — prefijo "sv-"
+   Página única con tres secciones anclables (#catering,
+   #decoracion, #produccion). Layout alternado imagen/texto.
+   ============================================================ */
+
+.sv-pagina {
+  --sv-tinta: #1a1a1a;
+  --sv-dorado: #b49a5e;
+  --sv-dorado-oscuro: #8f7440;
+  --sv-crema: #faf8f3;
+  --sv-borde: #e8e0d0;
+
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+
+/* ---------- Cabecera ---------- */
+
+.sv-cabecera {
+  max-width: 640px;
+  margin: 0 auto 70px;
+  text-align: center;
+}
+
+.sv-cabecera__etiqueta {
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  text-transform: uppercase;
+  color: var(--sv-dorado);
+}
+
+.sv-cabecera__titulo {
+  margin: 0 0 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.1;
+  color: var(--sv-tinta);
+}
+.sv-cabecera__titulo em {
+  font-style: normal;
+  color: var(--sv-dorado-oscuro);
+}
+
+.sv-cabecera__texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #555555;
+}
+
+/* ---------- Servicios: layout alternado ---------- */
+
+.sv-servicio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 60px;
+  align-items: center;
+  /* Espacio para el header sticky al scrollear con el ancla */
+  scroll-margin-top: 110px;
+  padding: 50px 0;
+}
+.sv-servicio + .sv-servicio {
+  border-top: 1px solid var(--sv-borde);
+}
+
+/* Las filas impares invierten imagen y texto */
+.sv-servicio--invertido .sv-servicio__img {
+  order: 2;
+}
+.sv-servicio--invertido .sv-servicio__cuerpo {
+  order: 1;
+}
+
+.sv-servicio__img {
+  height: 380px;
+  background-color: var(--sv-crema);
+  background-size: cover;
+  background-position: center;
+  border-radius: 14px;
+}
+
+.sv-servicio__cuerpo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sv-servicio__numero {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: var(--sv-dorado);
+  margin-bottom: 8px;
+}
+
+.sv-servicio__titulo {
+  margin: 0 0 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  color: var(--sv-tinta);
+}
+
+.sv-servicio__texto {
+  margin: 0 0 22px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: #555555;
+}
+
+.sv-servicio__lista {
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sv-servicio__lista li {
+  position: relative;
+  padding-left: 22px;
+  font-weight: 500;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: #3a3a3a;
+}
+/* Viñeta dorada */
+.sv-servicio__lista li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sv-dorado);
+}
+
+.sv-servicio__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 30px;
+  border: 1px solid var(--sv-dorado);
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--sv-tinta);
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.sv-servicio__cta:hover {
+  background: var(--sv-dorado);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* ---------- Accesibilidad ---------- */
+
+.sv-servicio__cta:focus-visible {
+  outline: 2px solid var(--sv-dorado-oscuro);
+  outline-offset: 3px;
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 960px) {
+  .sv-pagina {
+    padding: 44px 20px 80px;
+  }
+  .sv-cabecera {
+    margin-bottom: 46px;
+  }
+
+  .sv-servicio {
+    grid-template-columns: minmax(0, 1fr); /* todo apilado */
+    gap: 26px;
+    padding: 40px 0;
+    scroll-margin-top: 80px; /* header móvil más bajo */
+  }
+
+  /* En móvil la imagen siempre arriba, texto abajo (no alternar) */
+  .sv-servicio--invertido .sv-servicio__img { order: 0; }
+  .sv-servicio--invertido .sv-servicio__cuerpo { order: 1; }
+
+  .sv-servicio__img {
+    height: 220px;
+  }
+
+  .sv-servicio__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .sv-servicio__cta {
+    transition: none;
+  }
+}

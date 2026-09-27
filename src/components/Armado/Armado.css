@@ -1,0 +1,503 @@
+/* ============================================================
+   ARMADO DE PEDIDO — prefijo "ar-"
+   Popup de bienvenida + secciones del catálogo como chips
+   + consulta adicional + datos de contacto + envío WhatsApp.
+   ============================================================ */
+
+.ar-pagina {
+  --ar-tinta: #1a1a1a;
+  --ar-dorado: #b49a5e;
+  --ar-dorado-oscuro: #8f7440;
+  --ar-crema: #faf8f3;
+  --ar-borde: #e8e0d0;
+
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+
+/* ============================================================
+   POPUP DE BIENVENIDA
+   ============================================================ */
+
+.ar-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* Fondo oscurecido: un click acá también cierra */
+.ar-popup__fondo {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.ar-popup__caja {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 36px 36px;
+  background: #ffffff;
+  border: 1px solid var(--ar-borde);
+  border-top: 4px solid var(--ar-dorado);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(26, 26, 26, 0.25);
+  text-align: center;
+  animation: arAparece 0.3s ease;
+}
+
+@keyframes arAparece {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+.ar-popup__cerrar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 1rem;
+  color: #8a8172;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.ar-popup__cerrar:hover {
+  background: var(--ar-crema);
+  color: var(--ar-tinta);
+}
+
+.ar-popup__icono {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.ar-popup__titulo {
+  margin: 0 0 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: var(--ar-dorado-oscuro);
+}
+
+.ar-popup__texto {
+  margin: 0 0 12px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #2a2a2a;
+}
+.ar-popup__texto--detalle {
+  font-size: 0.82rem;
+  color: #8a8172;
+}
+
+.ar-popup__btn {
+  margin-top: 10px;
+  padding: 13px 36px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ar-dorado);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.ar-popup__btn:hover {
+  background: var(--ar-dorado-oscuro);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   CABECERA
+   ============================================================ */
+
+.ar-pagina__titulo {
+  margin: 0 0 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--ar-dorado-oscuro);
+}
+
+.ar-pagina__origen {
+  margin: 0 0 36px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #555555;
+}
+.ar-pagina__link {
+  color: var(--ar-dorado-oscuro);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ar-dorado);
+}
+
+/* ============================================================
+   SECCIONES
+   ============================================================ */
+
+.ar-seccion {
+  margin: 0 0 28px;
+  padding: 24px 26px;
+  border: 1px solid var(--ar-borde);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.ar-seccion--personas {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ar-seccion__titulo {
+  display: block;
+  padding: 0 0 14px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ar-tinta);
+}
+.ar-seccion--personas .ar-seccion__titulo {
+  padding: 0;
+}
+
+.ar-seccion__ayuda {
+  margin: 10px 0 0;
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: #8a8172;
+}
+
+/* Nota de recomendación (Posada Los Molles) con su botón */
+.ar-seccion__nota {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  background: var(--ar-crema);
+  border-left: 3px solid var(--ar-dorado);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ar-seccion__nota-texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: #4a4438;
+}
+
+.ar-seccion__nota-btn {
+  flex-shrink: 0;
+  padding: 9px 18px;
+  border: 1px solid var(--ar-dorado);
+  border-radius: 999px;
+  background: #ffffff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--ar-dorado-oscuro);
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.ar-seccion__nota-btn:hover {
+  background: var(--ar-dorado);
+  border-color: var(--ar-dorado);
+  color: #ffffff;
+}
+.ar-seccion__nota-btn.is-agregada {
+  background: var(--ar-dorado);
+  border-color: var(--ar-dorado);
+  color: #ffffff;
+}
+.ar-seccion__nota-btn.is-agregada:hover {
+  background: var(--ar-dorado-oscuro);
+  border-color: var(--ar-dorado-oscuro);
+}
+
+/* ============================================================
+   CHIPS DE OPCIONES
+   ============================================================ */
+
+.ar-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ar-chip {
+  padding: 10px 16px;
+  border: 1px solid var(--ar-borde);
+  border-radius: 999px;
+  background: var(--ar-crema);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--ar-tinta);
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.ar-chip:hover {
+  border-color: var(--ar-dorado);
+}
+.ar-chip.is-activa {
+  background: var(--ar-dorado);
+  border-color: var(--ar-dorado);
+  color: #ffffff;
+}
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+.ar-input {
+  width: 100%;
+  padding: 12px 18px;
+  border: 1px solid var(--ar-borde);
+  border-radius: 999px;
+  background: var(--ar-crema);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--ar-tinta);
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.ar-input:focus {
+  border-color: var(--ar-dorado);
+  box-shadow: 0 0 0 3px rgba(180, 154, 94, 0.2);
+}
+
+/* El textarea no puede llevar border-radius de pill: usa radio suave */
+.ar-input--area {
+  border-radius: 12px;
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+.ar-input--numero {
+  width: 140px;
+}
+
+/* ---------- Campo "Otro" tipo de evento con check ---------- */
+
+.ar-otro {
+  margin-top: 14px;
+}
+
+.ar-otro__fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* El input ya no ocupa todo el ancho: deja lugar al check */
+.ar-input--otro {
+  flex: 1;
+  min-width: 0;
+  margin-top: 0; /* el margen lo maneja .ar-otro */
+}
+/* Estado confirmado: el borde lo indica sin gritar */
+.ar-input--otro.is-listo {
+  border-color: var(--ar-dorado);
+  background: #ffffff;
+}
+
+/* Botón check de confirmación */
+.ar-otro__check {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ar-borde);
+  border-radius: 50%;
+  background: var(--ar-crema);
+  font-size: 1.1rem;
+  color: #8a8172;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.ar-otro__check:hover {
+  border-color: var(--ar-dorado);
+  color: var(--ar-dorado-oscuro);
+  transform: scale(1.06);
+}
+.ar-otro__check.is-listo {
+  background: var(--ar-dorado);
+  border-color: var(--ar-dorado);
+  color: #ffffff;
+}
+
+/* ============================================================
+   CONTACTO
+   ============================================================ */
+
+.ar-contacto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+/* ============================================================
+   ENVÍO
+   ============================================================ */
+
+.ar-envio {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ar-envio__resumen {
+  margin: 0 0 16px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ar-dorado-oscuro);
+}
+
+/* Botón principal en el dorado de la marca.
+   Internamente abre WhatsApp con el pedido armado. */
+.ar-envio__btn {
+  padding: 15px 42px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ar-dorado);
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.ar-envio__btn:hover:enabled {
+  background: var(--ar-dorado-oscuro);
+  transform: translateY(-2px);
+}
+.ar-envio__btn:disabled {
+  background: #c9c2b4;
+  cursor: not-allowed;
+}
+
+.ar-envio__ayuda {
+  margin: 12px 0 0;
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: #8a8172;
+}
+
+.ar-envio__preview {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 560px;
+  text-align: left;
+}
+.ar-envio__preview summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--ar-dorado-oscuro);
+}
+.ar-envio__texto {
+  margin: 12px 0 0;
+  padding: 18px;
+  border: 1px solid var(--ar-borde);
+  border-radius: 10px;
+  background: var(--ar-crema);
+  font-family: monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #333333;
+}
+
+/* ============================================================
+   ACCESIBILIDAD
+   ============================================================ */
+
+.ar-chip:focus-visible,
+.ar-input:focus-visible,
+.ar-otro__check:focus-visible,
+.ar-seccion__nota-btn:focus-visible,
+.ar-popup__btn:focus-visible,
+.ar-popup__cerrar:focus-visible,
+.ar-envio__btn:focus-visible {
+  outline: 2px solid var(--ar-dorado-oscuro);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   MÓVIL
+   ============================================================ */
+
+@media (max-width: 960px) {
+  .ar-pagina {
+    padding: 44px 20px 80px;
+  }
+  .ar-seccion {
+    padding: 20px 18px;
+  }
+  .ar-seccion--personas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .ar-input--numero {
+    width: 100%;
+  }
+  .ar-seccion__nota {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .ar-envio__btn {
+    width: 100%;
+  }
+  .ar-popup__caja {
+    padding: 34px 24px 30px;
+  }
+}
+
+/* ============================================================
+   MOVIMIENTO REDUCIDO
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-popup__caja {
+    animation: none;
+  }
+  .ar-chip,
+  .ar-input,
+  .ar-otro__check,
+  .ar-seccion__nota-btn,
+  .ar-popup__btn,
+  .ar-envio__btn {
+    transition: none;
+  }
+}

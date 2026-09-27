@@ -4,15 +4,18 @@ import './Header.css';
 
 // Definimos la navegación como datos: agregar un item aquí
 // lo refleja en escritorio y en móvil sin tocar el JSX.
+// `verTodo: true` = entrada general de la sección (sin número).
+// Los demás llevan `to` completo (anclas) o `slug`.
 const SECCIONES = [
   {
     id: 'eventos',
     label: 'Eventos',
     basePath: '/eventos',
     items: [
-      { slug: 'bodas', label: 'Bodas' },
-      { slug: 'corporativos', label: 'Eventos corporativos' },
-      { slug: 'sociales', label: 'Eventos sociales' },
+      { to: '/eventos', label: 'Ver todo', verTodo: true },
+      { to: '/eventos#bodas', label: 'Bodas', num: '01' },
+      { to: '/eventos#corporativos', label: 'Eventos corporativos', num: '02' },
+      { to: '/eventos#sociales', label: 'Eventos sociales', num: '03' },
     ],
   },
   {
@@ -20,9 +23,10 @@ const SECCIONES = [
     label: 'Servicios',
     basePath: '/servicios',
     items: [
-      { slug: 'catering', label: 'Catering' },
-      { slug: 'decoracion', label: 'Decoración y ambientación' },
-      { slug: 'produccion', label: 'Producción integral' },
+      { to: '/servicios', label: 'Ver todo', verTodo: true },
+      { to: '/servicios#catering', label: 'Catering', num: '01' },
+      { to: '/servicios#decoracion', label: 'Decoración y ambientación', num: '02' },
+      { to: '/servicios#produccion', label: 'Producción integral', num: '03' },
     ],
   },
 ];
@@ -34,7 +38,6 @@ const LINKS_DIRECTOS = [
 
 // ¿Estamos en escritorio? Mismas condiciones que el CSS:
 // ancho mayor a 960px Y dispositivo con hover real (mouse).
-// En tablets táctiles anchas el click sigue funcionando.
 const esEscritorio = () =>
   window.matchMedia('(min-width: 961px) and (hover: hover)').matches;
 
@@ -57,14 +60,20 @@ function NavDropdown({ seccion, abierto, onToggle, onNavigate }) {
       </button>
 
       <div className="sh-dd__menu">
-        {seccion.items.map((item, i) => (
+        {seccion.items.map((item) => (
           <NavLink
-            key={item.slug}
-            to={`${seccion.basePath}/${item.slug}`}
+            key={item.to || item.slug}
+            to={item.to || `${seccion.basePath}/${item.slug}`}
             onClick={onNavigate}
-            className={({ isActive }) => `sh-dd__item${isActive ? ' is-active' : ''}`}
+            className={({ isActive }) =>
+              `sh-dd__item${item.verTodo ? ' sh-dd__item--vertodo' : ''}${isActive ? ' is-active' : ''}`
+            }
+            end={item.verTodo} /* /eventos exacto, no con ancla */
           >
-            <span className="sh-dd__num">{String(i + 1).padStart(2, '0')}</span>
+            {/* El "Ver todo" no lleva número */}
+            {!item.verTodo && (
+              <span className="sh-dd__num">{item.num}</span>
+            )}
             <span>{item.label}</span>
           </NavLink>
         ))}
@@ -99,8 +108,6 @@ export default function Header() {
 
   const toggleDropdown = (id) => {
     // En escritorio el dropdown abre únicamente por hover (CSS).
-    // El click no hace nada: así nunca queda "pegado" ni
-    // interfiere entre dropdowns.
     if (esEscritorio()) return;
     setDropdownAbierto((prev) => (prev === id ? null : id));
   };
@@ -128,8 +135,15 @@ export default function Header() {
 
         {/* Centro: wordmark tipográfico */}
         <NavLink to="/" className="sh-logo" onClick={cerrarTodo} aria-label="Desidere, ir al inicio">
-          <span className="sh-logo__nombre">DESIDERE</span>
-          <span className="sh-logo__sub">Eventos <em>&amp;</em> Catering</span>
+          <span className="sh-logo__texto">
+            <span className="sh-logo__nombre">DESIDERE</span>
+            <span className="sh-logo__sub">Eventos <em>&amp;</em> Catering</span>
+          </span>
+          <img
+            src="/logo2.png"
+            alt="Desidere"
+            className="sh-logo__img"
+          />
         </NavLink>
 
         {/* Derecha: Nosotros / Contacto + hamburguesa en móvil */}

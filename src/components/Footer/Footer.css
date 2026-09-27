@@ -1,0 +1,272 @@
+/* ============================================================
+   FOOTER — prefijo "ft-"
+   Marca + contacto / navegación en columnas / CTA al armado.
+   Fondo tinta oscura con dorado: cierre con contraste.
+   ============================================================ */
+
+.site-footer {
+  --ft-tinta: #1a1a1a;
+  --ft-dorado: #b49a5e;
+  --ft-dorado-claro: #d3c19a;
+  --ft-crema: #faf8f3;
+  --ft-texto-suave: #b5ad9e;
+
+  background: var(--ft-tinta);
+  color: var(--ft-crema);
+  margin-top: auto; /* por si el main queda corto, pega el footer abajo */
+}
+
+.ft-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 70px 32px 50px;
+  display: grid;
+  /* PC: marca / nav / CTA. La nav interna a su vez reparte sus
+     grupos en 3 columnas, entonces nada queda apilado largo. */
+  grid-template-columns: 1.1fr 1.6fr 0.9fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ---------- Marca + contacto ---------- */
+
+.ft-col--marca {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ft-logo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+}
+.ft-logo__nombre {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 1;
+  letter-spacing: 0.26em;
+  color: var(--ft-dorado);
+}
+.ft-logo__sub {
+  font-weight: 700;
+  font-size: 0.55rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--ft-crema);
+}
+.ft-logo__sub em {
+  font-style: normal;
+  color: var(--ft-dorado);
+}
+
+.ft-contacto {
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ft-contacto__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--ft-texto-suave);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.ft-contacto__item:hover {
+  color: var(--ft-dorado-claro);
+}
+.ft-contacto__icono {
+  display: inline-flex;
+  color: var(--ft-dorado);
+  flex-shrink: 0;
+}
+
+/* ---------- Navegación: grupos lado a lado ---------- */
+
+.ft-col--nav {
+  /* Los tres grupos (Eventos, Servicios, Institucional)
+     quedan en fila, repartiendo el ancho de la columna */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+  align-items: start;
+}
+
+.ft-nav__titulo {
+  margin: 0 0 14px;
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ft-dorado);
+}
+
+.ft-nav__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ft-nav__link {
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--ft-texto-suave);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.ft-nav__link:hover {
+  color: var(--ft-crema);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--ft-dorado);
+}
+
+/* ---------- CTA ---------- */
+
+.ft-col--cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.ft-cta__texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ft-texto-suave);
+}
+
+.ft-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 11px 12px 11px 26px;
+  min-width: 220px;
+  border: 1px solid var(--ft-dorado);
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--ft-crema);
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Círculo dorado con flecha adentro */
+.ft-cta__circulo {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--ft-dorado);
+  color: var(--ft-tinta);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.ft-cta__btn:hover {
+  background: var(--ft-dorado);
+  color: var(--ft-tinta);
+}
+.ft-cta__btn:hover .ft-cta__circulo {
+  transform: translateX(4px); /* la flecha "avanza" al hover */
+}
+
+/* ---------- Legal ---------- */
+
+.ft-legal {
+  border-top: 1px solid rgba(250, 248, 243, 0.12);
+  padding: 22px 32px;
+}
+.ft-legal__texto {
+  max-width: 1180px;
+  margin: 0 auto;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: #7d766a;
+}
+
+/* ---------- Accesibilidad ---------- */
+
+.ft-contacto__item:focus-visible,
+.ft-nav__link:focus-visible,
+.ft-cta__btn:focus-visible,
+.ft-logo:focus-visible {
+  outline: 2px solid var(--ft-dorado);
+  outline-offset: 3px;
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 960px) {
+  .ft-inner {
+    grid-template-columns: minmax(0, 1fr); /* columnas apiladas */
+    gap: 44px;
+    padding: 54px 24px 40px;
+  }
+
+  /* Marca y CTA centrados */
+  .ft-col--marca,
+  .ft-col--cta {
+    align-items: center;
+    text-align: center;
+  }
+  .ft-contacto {
+    align-items: center;
+  }
+
+  /* Nav: los 3 grupos en fila también en móvil (era lo que se
+     veía disparejo apilado). En pantallas muy chicas pasan a 2. */
+  .ft-col--nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px 18px;
+  }
+
+  .ft-cta__btn {
+    min-width: 240px;
+    justify-content: center;
+  }
+
+  .ft-legal {
+    padding: 18px 24px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .ft-col--nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 18px;
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ft-contacto__item,
+  .ft-nav__link,
+  .ft-cta__btn,
+  .ft-cta__circulo {
+    transition: none;
+  }
+}

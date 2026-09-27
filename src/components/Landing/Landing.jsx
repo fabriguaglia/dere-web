@@ -1,7 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Landing.css';
-import Hero from '../assets/images/hero-evento.jpg';
+import Hero from "../assets/images/hero-evento.webp";
+import ImgBodas from '../assets/images/bodas.webp';
+import ImgCorporativos from '../assets/images/corporativo.webp';
+import ImgSociales from '../assets/images/sociales.webp';
+import ImgCatering from '../assets/images/catering.webp';
+import ImgDecoracion from '../assets/images/decoracion.webp';
+import ImgOrganizacion from '../assets/images/organizacion.webp';
 
 // Frases que rota el buscador. Agregar o quitar acá
 // no requiere tocar nada más.
@@ -24,8 +30,6 @@ function usePlaceholderRotativo(frases) {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    // Usuarios con movimiento reducido: sin máquina de escribir,
-    // la frase cambia completa cada 3.5s
     const sinAnimacion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
@@ -42,19 +46,16 @@ function usePlaceholderRotativo(frases) {
     let timeout;
     let cancelado = false;
 
-    // Escribe la frase actual carácter a carácter
     const escribir = (frase, pos) => {
       if (cancelado) return;
       if (pos <= frase.length) {
         setTexto(frase.slice(0, pos));
         timeout = setTimeout(() => escribir(frase, pos + 1), MS_ESCRITURA);
       } else {
-        // Frase completa: pausa y luego borra
         timeout = setTimeout(() => borrar(frase, frase.length), MS_PAUSA_ESCRITO);
       }
     };
 
-    // Borra la frase carácter a carácter y pasa a la siguiente
     const borrar = (frase, pos) => {
       if (cancelado) return;
       if (pos >= 0) {
@@ -80,48 +81,100 @@ function usePlaceholderRotativo(frases) {
   return texto;
 }
 
-// Tarjetas de tipos de evento. Cada una linkea a una ruta que
-// ya existe. La imagen se carga por CSS (background), así que si
-// el archivo no existe todavía se ve el fondo crema y no una
-// imagen rota.
+// Tarjetas de tipos de evento
 const TARJETAS = [
   {
-    to: '/eventos/bodas',
+    to: '/eventos#bodas',
     titulo: 'Bodas',
     texto: 'El día más importante, organizado en cada detalle.',
-    img: '/cards/bodas.jpg',
+    img: ImgBodas,
   },
   {
-    to: '/eventos/corporativos',
+    to: '/eventos#corporativos',
     titulo: 'Corporativos',
     texto: 'Eventos de empresa con impronta profesional.',
-    img: '/cards/corporativos.jpg',
+    img: ImgCorporativos,
   },
   {
-    to: '/eventos/sociales',
+    to: '/eventos#sociales',
     titulo: 'Sociales',
     texto: 'Cumpleaños, aniversarios y celebraciones únicas.',
-    img: '/cards/sociales.jpg',
+    img: ImgSociales,
   },
 ];
+
+// Tarjetas de servicios (los mismos del header)
+const SERVICIOS = [
+  {
+    to: '/servicios#catering',
+    titulo: 'Catering',
+    texto: 'Siete opciones de menú, barra, coffee bar y sushi libre.',
+    img: ImgCatering,
+  },
+  {
+    to: '/servicios#decoracion',
+    titulo: 'Decoración y ambientación',
+    texto: 'Vajilla, arreglos florales, gazebos, livings y más.',
+    img: ImgDecoracion,
+  },
+  {
+    to: '/servicios#produccion',
+    titulo: 'Producción integral',
+    texto: 'Organización y coordinación completa de tu evento.',
+    img: ImgOrganizacion,
+  },
+];
+
+// Ruta del armado de pedido. Único punto de verdad:
+// si cambiás la ruta en App.jsx, solo se cambia acá.
+const RUTA_PEDIDO = '/pedido';
+
+// Id del buscador: el CTA de cierre scrollea hacia acá
+const ID_BUSCADOR = 'ld-buscador';
+
+// Card reutilizable para eventos y servicios
+function Card({ to, titulo, texto, img }) {
+  return (
+    <Link to={to} className="ld-tarjeta">
+      <div
+        className="ld-tarjeta__img"
+        style={{ backgroundImage: `url(${img})` }}
+        role="img"
+        aria-label={titulo}
+      />
+      <div className="ld-tarjeta__cuerpo">
+        <h3 className="ld-tarjeta__titulo">{titulo}</h3>
+        <p className="ld-tarjeta__texto">{texto}</p>
+        <span className="ld-tarjeta__link">Ver más</span>
+      </div>
+    </Link>
+  );
+}
 
 export default function Landing() {
   const placeholder = usePlaceholderRotativo(SUGERENCIAS);
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
-  // Sin buscador real todavía: el envío lleva a contacto,
-  // que es el siguiente paso natural para quien quiere cotizar.
+  // El texto escrito viaja al armado de pedido, donde se
+  // interpreta y preseleccionan las opciones detectadas.
   const alBuscar = (e) => {
     e.preventDefault();
-    navigate('/contacto');
+    const texto = inputRef.current ? inputRef.current.value : '';
+    navigate(RUTA_PEDIDO, { state: { texto } });
+  };
+
+  // El CTA de cierre sube hasta el buscador y le pone el foco,
+  // listo para que el usuario escriba
+  const irAlBuscador = (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 450);
   };
 
   return (
     <>
       <section className="ld-hero">
-        {/* Fondo: una foto de evento real (carpa, mesa ambientada...).
-            Vive DENTRO del hero: cubre la primera pantalla y al hacer
-            scroll la imagen termina — no se repite ni queda fija. */}
         <img
           src={Hero}
           alt=""
@@ -130,7 +183,6 @@ export default function Landing() {
         />
         <div className="ld-hero__velo" aria-hidden="true" />
 
-        {/* Columna única en PC y móvil: logo, buscador, texto */}
         <div className="ld-hero__contenido">
 
           <img
@@ -139,14 +191,21 @@ export default function Landing() {
             className="ld-hero__logo"
           />
 
-          <form className="ld-buscador" onSubmit={alBuscar} role="search">
+          {/* id: destino del scroll del CTA de cierre */}
+          <form
+            id={ID_BUSCADOR}
+            className="ld-buscador"
+            onSubmit={alBuscar}
+            role="search"
+          >
             <input
+              ref={inputRef}
               type="search"
               className="ld-buscador__input"
               placeholder={placeholder}
-              aria-label="¿Qué deseas realizar? Escribí tu evento y te llevamos a cotizar"
+              aria-label="¿Qué deseas realizar? Contanos tu evento y armamos el pedido juntos"
             />
-            <button type="submit" className="ld-buscador__btn" aria-label="Cotizar mi evento">
+            <button type="submit" className="ld-buscador__btn" aria-label="Armar mi pedido">
               <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
                 <circle cx="7.5" cy="7.5" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
                 <line x1="12" y1="12" x2="16.5" y2="16.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
@@ -154,7 +213,7 @@ export default function Landing() {
             </button>
           </form>
           <p className="ld-buscador__ayuda">
-            Contanos qué imaginás y nosotros lo hacemos realidad.
+            Contanos qué imaginás y armamos tu pedido juntos.
           </p>
 
           <p className="ld-hero__texto">
@@ -165,25 +224,22 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Sección de tipos de evento: llena el landing y lleva
-          tráfico a las páginas que ya existen */}
+      {/* Tipos de evento */}
       <section className="ld-tipos">
         <h2 className="ld-tipos__titulo">¿Qué estás organizando?</h2>
         <div className="ld-tipos__grid">
           {TARJETAS.map((t) => (
-            <Link key={t.to} to={t.to} className="ld-tarjeta">
-              <div
-                className="ld-tarjeta__img"
-                style={{ backgroundImage: `url(${t.img})` }}
-                role="img"
-                aria-label={t.titulo}
-              />
-              <div className="ld-tarjeta__cuerpo">
-                <h3 className="ld-tarjeta__titulo">{t.titulo}</h3>
-                <p className="ld-tarjeta__texto">{t.texto}</p>
-                <span className="ld-tarjeta__link">Ver más</span>
-              </div>
-            </Link>
+            <Card key={t.to} {...t} />
+          ))}
+        </div>
+      </section>
+
+      {/* Servicios (los mismos del header) */}
+      <section className="ld-tipos ld-tipos--servicios">
+        <h2 className="ld-tipos__titulo">Nuestros servicios</h2>
+        <div className="ld-tipos__grid">
+          {SERVICIOS.map((s) => (
+            <Card key={s.to} {...s} />
           ))}
         </div>
       </section>
@@ -194,9 +250,15 @@ export default function Landing() {
           Creamos eventos únicos desde cero, rodeados de naturaleza y
           comodidad, mientras ustedes disfrutan.
         </p>
-        <Link to="/contacto" className="ld-cierre__cta">
+        <a href={`#${ID_BUSCADOR}`} className="ld-cierre__cta" onClick={irAlBuscador}>
           Cotizá tu evento
-        </Link>
+          <span className="ld-cierre__circulo" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </span>
+        </a>
       </section>
     </>
   );

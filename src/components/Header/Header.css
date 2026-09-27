@@ -285,12 +285,35 @@
   .sh-nav--right .sh-link { display: none; }    /* oculto solo los links, el burger queda */
   .sh-burger { display: flex; }
 
-  /* Logo: en móvil se invierte — imagen sí, texto no */
-  .sh-logo__texto { display: none; }
+  /* Logo en móvil: solo el wordmark tipográfico, compacto */
+  .sh-logo__texto {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .sh-logo__nombre {
+    font-size: 1.1rem;
+    letter-spacing: 0.18em;
+    text-indent: 0.18em;
+  }
+  .sh-logo__sub {
+    font-size: 0.42rem;
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+  }
   .sh-logo__img {
-    display: block;
-    height: 44px;
-    width: auto;
+    display: none;
+  }
+    .sh-logo__nombre {
+    font-size: 1.5rem;          /* antes 1.1rem */
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+  }
+  .sh-logo__sub {
+    font-size: 0.52rem;         /* antes 0.42rem */
+    letter-spacing: 0.32em;
+    text-indent: 0.32em;
   }
   /* La línea de acento del wordmark no aplica a la imagen */
   .sh-logo::after { display: none; }

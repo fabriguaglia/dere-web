@@ -1,0 +1,291 @@
+/* ============================================================
+   CONTACTO — prefijo "ct-"
+   Datos directos + panel de cotización con los 3 pasos del
+   armado de pedido. Sin formulario: el envío es por WhatsApp
+   desde el armado o por los datos directos.
+   ============================================================ */
+
+.ct-pagina {
+  --ct-tinta: #1a1a1a;
+  --ct-dorado: #b49a5e;
+  --ct-dorado-oscuro: #8f7440;
+  --ct-crema: #faf8f3;
+  --ct-borde: #e8e0d0;
+
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+
+/* ---------- Cabecera ---------- */
+
+.ct-cabecera {
+  max-width: 640px;
+  margin: 0 auto 70px;
+  text-align: center;
+}
+
+.ct-cabecera__etiqueta {
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  text-transform: uppercase;
+  color: var(--ct-dorado);
+}
+
+.ct-cabecera__titulo {
+  margin: 0 0 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.1;
+  color: var(--ct-tinta);
+}
+.ct-cabecera__titulo em {
+  font-style: normal;
+  color: var(--ct-dorado-oscuro);
+}
+
+.ct-cabecera__texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #555555;
+}
+
+/* ---------- Grid de dos columnas ---------- */
+
+.ct-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 60px;
+  align-items: start;
+}
+
+/* ---------- Info directa ---------- */
+
+.ct-info__titulo {
+  margin: 0 0 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: var(--ct-tinta);
+}
+
+.ct-info__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ct-info__item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--ct-borde);
+  border-radius: 14px;
+  background: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ct-tinta);
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+/* Color/text-decoration explícitos: Bootstrap pinta los <a> de azul */
+.ct-info__item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(26, 26, 26, 0.1);
+  color: var(--ct-tinta);
+  text-decoration: none;
+}
+
+.ct-info__icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ct-crema);
+  border: 1px solid var(--ct-borde);
+  color: var(--ct-dorado-oscuro);
+  flex-shrink: 0;
+}
+
+.ct-info__datos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ct-info__label {
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ct-dorado-oscuro);
+}
+
+/* ---------- Panel de cotización ---------- */
+
+.ct-pedido {
+  padding: 34px;
+  border: 1px solid var(--ct-borde);
+  border-top: 4px solid var(--ct-dorado);
+  border-radius: 16px;
+  background: var(--ct-crema);
+}
+
+.ct-pedido__titulo {
+  margin: 0 0 12px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.9rem;
+  color: var(--ct-tinta);
+}
+
+.ct-pedido__intro {
+  margin: 0 0 26px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #555555;
+}
+
+.ct-pedido__pasos {
+  margin: 0 0 30px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ct-paso {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.ct-paso__numero {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--ct-dorado);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ct-dorado-oscuro);
+  background: #ffffff;
+}
+
+.ct-paso__titulo {
+  margin: 0 0 4px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ct-tinta);
+}
+
+.ct-paso__texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: #555555;
+}
+
+/* ---------- CTA ---------- */
+
+.ct-pedido__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  width: 100%;
+  padding: 12px 14px 12px 28px;
+  border: none;
+  border-radius: 999px;
+  background: var(--ct-dorado);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.ct-pedido__btn:hover {
+  background: var(--ct-dorado-oscuro);
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.ct-pedido__circulo {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--ct-dorado-oscuro);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.ct-pedido__btn:hover .ct-pedido__circulo {
+  transform: translateX(4px);
+}
+
+/* ---------- Accesibilidad ---------- */
+
+.ct-info__item:focus-visible,
+.ct-pedido__btn:focus-visible {
+  outline: 2px solid var(--ct-dorado-oscuro);
+  outline-offset: 3px;
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 960px) {
+  .ct-pagina {
+    padding: 44px 20px 80px;
+  }
+  .ct-cabecera {
+    margin-bottom: 46px;
+  }
+
+  .ct-grid {
+    grid-template-columns: minmax(0, 1fr); /* apilado */
+    gap: 40px;
+  }
+
+  .ct-pedido {
+    padding: 26px 20px;
+  }
+
+  .ct-pedido__btn {
+    justify-content: center;
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-info__item,
+  .ct-pedido__btn,
+  .ct-pedido__circulo {
+    transition: none;
+  }
+}

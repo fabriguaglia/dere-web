@@ -1,8 +1,9 @@
 /* ============================================================
    LANDING — prefijo "ld-"
-   Hero en columna única (PC y móvil): logo, buscador, texto.
-   Foto de fondo que cubre la primera pantalla y termina al
-   hacer scroll + tarjetas de tipos de evento + franja de cierre.
+   Hero con foto de fondo + tarjetas de eventos y servicios
+   + franja de cierre con CTA.
+   IMPORTANTE: los <a> llevan color explícito porque Bootstrap
+   global pinta los links de azul por defecto.
    ============================================================ */
 
 .ld-hero {
@@ -12,31 +13,38 @@
   --ld-crema: #faf8f3;
 
   position: relative;
-  /* Ocupa la primera pantalla entera (menos el header de 85px).
-     La foto "coincide" con la pantalla al cargar y al empezar a
-     bajar, la imagen termina acá. */
   min-height: calc(100vh - 85px);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-x: clip; /* nada de este hero puede generar scroll lateral */
+  overflow-x: clip;
+}
+
+/* Antes: solo .ld-hero tenía las variables.
+   Ahora las heredan las tres secciones del landing. */
+.ld-hero,
+.ld-tipos,
+.ld-cierre {
+  --ld-tinta: #1a1a1a;
+  --ld-dorado: #b49a5e;
+  --ld-dorado-oscuro: #8f7440;
+  --ld-crema: #faf8f3;
 }
 
 /* ---------- Fondo fotográfico ---------- */
 
 .ld-hero__fondo {
   position: absolute;
-  inset: 0;               /* ocupa todo el hero, ni un píxel más */
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* cubre sin deformar: recorta lo que sobra */
-  object-position: center; /* el recorte queda centrado */
+  object-fit: cover;
+  object-position: center;
   z-index: 0;
 }
 
-/* Velo crema translúcido sobre la foto: mantiene el texto legible
-   sin matar la imagen. Si la foto definitiva es oscura, bajá esta
-   opacidad (ej: 0.35); si es muy clara con mucho blanco, subila. */
+/* Velo crema translúcido sobre la foto. Si la foto definitiva
+   es oscura, bajá esta opacidad (ej: 0.35); si es muy clara, subila. */
 .ld-hero__velo {
   position: absolute;
   inset: 0;
@@ -62,9 +70,8 @@
   display: block;
   height: 170px;
   width: auto;
-  max-width: 100%; /* nunca más ancho que su contenedor */
+  max-width: 100%;
   margin-bottom: 34px;
-  /* Sombra suave para que el monograma dorado destaque sobre la foto */
   filter: drop-shadow(0 4px 14px rgba(26, 26, 26, 0.18));
 }
 
@@ -79,12 +86,9 @@
   background: var(--ld-crema);
   padding: 6px 6px 6px 26px;
   min-height: 62px;
-  /* Sombra para separar el buscador del fondo fotográfico */
   box-shadow: 0 10px 30px rgba(26, 26, 26, 0.12);
   transition: box-shadow 0.3s ease;
 }
-/* El foco se señala con el resplandor del pill, no con un
-   outline sobre el input */
 .ld-buscador:focus-within {
   box-shadow:
     0 0 0 3px rgba(180, 154, 94, 0.35),
@@ -93,23 +97,22 @@
 
 .ld-buscador__input {
   flex: 1;
-  min-width: 0;        /* el input puede encoger dentro del flex */
+  min-width: 0;
   width: 100%;
   border: none;
-  outline: none;       /* sin recuadro de foco: lo aporta el :focus-within */
+  outline: none;
   background: transparent;
   font-family: inherit;
   font-weight: 500;
   font-size: 0.95rem;
   color: var(--ld-tinta);
 }
-/* Placeholder con menos contraste: es una sugerencia, no contenido */
 .ld-buscador__input::placeholder {
   color: #8a8172;
   opacity: 1;
 }
 .ld-buscador__input::-webkit-search-cancel-button {
-  -webkit-appearance: none; /* la lupa dorada ya es el botón de acción */
+  -webkit-appearance: none;
 }
 
 .ld-buscador__btn {
@@ -136,7 +139,7 @@
   font-weight: 600;
   font-size: 0.78rem;
   letter-spacing: 0.03em;
-  color: #4a4438; /* más oscuro que el placeholder: flota sobre la foto */
+  color: #4a4438;
 }
 
 /* ---------- Texto bajo el buscador ---------- */
@@ -147,14 +150,13 @@
   font-weight: 600;
   font-size: 0.95rem;
   line-height: 1.8;
-  color: var(--ld-tinta);
+  color: #000000;
   border-top: 1px solid var(--ld-dorado-oscuro);
   padding-top: 26px;
-  
 }
 
 /* ============================================================
-   TIPOS DE EVENTO — tarjetas que llenan el landing
+   TARJETAS — eventos y servicios
    ============================================================ */
 
 .ld-tipos {
@@ -162,6 +164,12 @@
   margin: 0 auto;
   padding: 40px 32px 90px;
   background: #ffffff;
+}
+
+/* La sección de servicios respira un poco menos: queda
+   pegada a la de eventos como un mismo bloque de contenido */
+.ld-tipos--servicios {
+  padding-top: 0;
 }
 
 .ld-tipos__titulo {
@@ -179,6 +187,8 @@
   gap: 28px;
 }
 
+/* Color y text-decoration explícitos: Bootstrap global pinta
+   los <a> de azul, y la tarjeta es un <a> */
 .ld-tarjeta {
   display: flex;
   flex-direction: column;
@@ -187,11 +197,14 @@
   border-radius: 14px;
   overflow: hidden;
   text-decoration: none;
+  color: var(--ld-tinta);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .ld-tarjeta:hover {
   transform: translateY(-6px);
   box-shadow: 0 18px 40px rgba(26, 26, 26, 0.12);
+  text-decoration: none;
+  color: var(--ld-tinta);
 }
 
 /* Imagen por background: si el archivo no existe todavía,
@@ -236,18 +249,18 @@
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ld-tinta);
+  color: var(--ld-dorado-oscuro);
   border-bottom: 1px solid var(--ld-dorado);
   align-self: flex-start;
   padding-bottom: 2px;
   transition: color 0.3s ease;
 }
 .ld-tarjeta:hover .ld-tarjeta__link {
-  color: var(--ld-dorado-oscuro);
+  color: var(--ld-tinta);
 }
 
 /* ============================================================
-   CIERRE — franja con propuesta de valor + CTA
+   CIERRE — franja con propuesta de valor + CTA dorado
    ============================================================ */
 
 .ld-cierre {
@@ -270,36 +283,49 @@
   color: var(--ld-tinta);
 }
 
+/* CTA dorado sólido: visible siempre, también sobre blanco.
+   Color explícito para no heredar el azul de Bootstrap. */
 .ld-cierre__cta {
   display: inline-flex;
   align-items: center;
-  gap: 26px;
-  padding: 13px 16px 13px 28px;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 11px 12px 11px 28px;
+  min-width: 240px;
   border: 1px solid var(--ld-dorado);
   border-radius: 999px;
-  background: #ffffff;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  color: var(--ld-tinta);
-  text-decoration: none;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-.ld-cierre__cta::after {
-  content: '';
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
   background: var(--ld-dorado);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.ld-cierre__cta:hover {
+  background: var(--ld-dorado-oscuro);
+  border-color: var(--ld-dorado-oscuro);
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+/* Círculo blanco con flecha adentro (contraste sobre dorado) */
+.ld-cierre__circulo {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--ld-dorado-oscuro);
   flex-shrink: 0;
   transition: transform 0.3s ease;
 }
-.ld-cierre__cta:hover {
-  background: var(--ld-dorado);
-  color: #ffffff;
-}
-.ld-cierre__cta:hover::after {
-  transform: scale(1.15);
+.ld-cierre__cta:hover .ld-cierre__circulo {
+  transform: translateX(4px);
 }
 
 /* ---------- Accesibilidad ---------- */
@@ -317,8 +343,6 @@
 
 @media (max-width: 960px) {
   .ld-hero {
-    /* Primera pantalla completa también en móvil (menos el
-       header de 61px) */
     min-height: calc(100vh - 61px);
   }
 
@@ -343,8 +367,6 @@
     height: 44px;
   }
 
-  /* Recorte de la foto centrado un poco más arriba en móvil:
-     suele ser donde está el sujeto interesante de la foto */
   .ld-hero__fondo {
     object-position: center 35%;
   }
@@ -352,8 +374,14 @@
   .ld-tipos {
     padding: 0 20px 60px;
   }
+  .ld-hero + .ld-tipos {
+    padding-top: 44px;
+  }
+  .ld-tipos--servicios {
+    padding-top: 0;
+  }
   .ld-tipos__grid {
-    grid-template-columns: minmax(0, 1fr); /* tarjetas apiladas */
+    grid-template-columns: minmax(0, 1fr);
     gap: 20px;
   }
   .ld-tarjeta__img {
@@ -362,6 +390,10 @@
 
   .ld-cierre {
     padding: 56px 24px;
+  }
+  .ld-cierre__cta {
+    width: 100%;
+    max-width: 320px;
   }
 }
 
@@ -373,7 +405,7 @@
   .ld-tarjeta,
   .ld-tarjeta__img,
   .ld-cierre__cta,
-  .ld-cierre__cta::after {
+  .ld-cierre__circulo {
     transition: none;
   }
 }

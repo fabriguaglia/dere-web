@@ -1,0 +1,213 @@
+/* ============================================================
+   EVENTOS — prefijo "ev-"
+   Página única con tres secciones anclables (#bodas,
+   #corporativos, #sociales). Layout alternado imagen/texto.
+   ============================================================ */
+
+.ev-pagina {
+  --ev-tinta: #1a1a1a;
+  --ev-dorado: #b49a5e;
+  --ev-dorado-oscuro: #8f7440;
+  --ev-crema: #faf8f3;
+  --ev-borde: #e8e0d0;
+
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+
+/* ---------- Cabecera ---------- */
+
+.ev-cabecera {
+  max-width: 640px;
+  margin: 0 auto 70px;
+  text-align: center;
+}
+
+.ev-cabecera__etiqueta {
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  text-transform: uppercase;
+  color: var(--ev-dorado);
+}
+
+.ev-cabecera__titulo {
+  margin: 0 0 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.1;
+  color: var(--ev-tinta);
+}
+.ev-cabecera__titulo em {
+  font-style: normal;
+  color: var(--ev-dorado-oscuro);
+}
+
+.ev-cabecera__texto {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #555555;
+}
+
+/* ---------- Eventos: layout alternado ---------- */
+
+.ev-evento {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 60px;
+  align-items: center;
+  /* Espacio para el header sticky al scrollear con el ancla */
+  scroll-margin-top: 110px;
+  padding: 50px 0;
+}
+.ev-evento + .ev-evento {
+  border-top: 1px solid var(--ev-borde);
+}
+
+/* Las filas impares invierten imagen y texto */
+.ev-evento--invertido .ev-evento__img {
+  order: 2;
+}
+.ev-evento--invertido .ev-evento__cuerpo {
+  order: 1;
+}
+
+.ev-evento__img {
+  height: 380px;
+  background-color: var(--ev-crema);
+  background-size: cover;
+  background-position: center;
+  border-radius: 14px;
+}
+
+.ev-evento__cuerpo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ev-evento__numero {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: var(--ev-dorado);
+  margin-bottom: 8px;
+}
+
+.ev-evento__titulo {
+  margin: 0 0 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  color: var(--ev-tinta);
+}
+
+.ev-evento__texto {
+  margin: 0 0 22px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: #555555;
+}
+
+.ev-evento__lista {
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ev-evento__lista li {
+  position: relative;
+  padding-left: 22px;
+  font-weight: 500;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: #3a3a3a;
+}
+/* Viñeta dorada */
+.ev-evento__lista li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ev-dorado);
+}
+
+.ev-evento__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 30px;
+  border: 1px solid var(--ev-dorado);
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--ev-tinta);
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.ev-evento__cta:hover {
+  background: var(--ev-dorado);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* ---------- Accesibilidad ---------- */
+
+.ev-evento__cta:focus-visible {
+  outline: 2px solid var(--ev-dorado-oscuro);
+  outline-offset: 3px;
+}
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 960px) {
+  .ev-pagina {
+    padding: 44px 20px 80px;
+  }
+  .ev-cabecera {
+    margin-bottom: 46px;
+  }
+
+  .ev-evento {
+    grid-template-columns: minmax(0, 1fr); /* todo apilado */
+    gap: 26px;
+    padding: 40px 0;
+    scroll-margin-top: 80px; /* header móvil más bajo */
+  }
+
+  /* En móvil la imagen siempre arriba, texto abajo (no alternar) */
+  .ev-evento--invertido .ev-evento__img { order: 0; }
+  .ev-evento--invertido .ev-evento__cuerpo { order: 1; }
+
+  .ev-evento__img {
+    height: 220px;
+  }
+
+  .ev-evento__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-evento__cta {
+    transition: none;
+  }
+}
