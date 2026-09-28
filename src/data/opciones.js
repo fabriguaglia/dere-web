@@ -56,7 +56,7 @@ export const SECCIONES = [
       { id: 'quincho', label: 'Quincho', claves: ['quincho'] },
       // Está disponible como chip siempre, y además el botón de la
       // nota de "Aire libre" la activa/desactiva
-      { id: 'posada', label: 'Posada Los Molles (Entre Ríos) — recomendado', claves: ['posada', 'los molles'] },
+      { id: 'posada', label: 'Posada Los Molles (Entre Ríos)', claves: ['posada', 'los molles'] },
     ],
   },
 
@@ -113,15 +113,16 @@ export const SECCIONES = [
       { id: 'op1', label: 'Opción 1 — Pizzas y empanadas', claves: ['pizza', 'muzza', 'empanada', 'catering'] },
       { id: 'op2', label: 'Opción 2 — Asado (vegana/vegetariana a consultar)', claves: ['asado', 'parrilla', 'chorizo', 'vacio'] },
       { id: 'op3', label: 'Opción 3 — Pernil, tacos y pastas', claves: ['pernil', 'taco', 'pasta', 'noquis', 'tuco'] },
-      { id: 'op4', label: 'Opción 4 — Picadas', claves: ['picada', 'picadas', 'tablas'] },
-      { id: 'op5', label: 'Opción 5 — Servicio de té', claves: ['servicio de te', 'merienda', 'sandwich', 'scon', 'medialuna'] },
-      { id: 'op6', label: 'Opción 6 — Mesa dulce', claves: ['mesa dulce', 'panqueque'] },
-      { id: 'op7', label: 'Opción 7 — Kids', claves: ['kids', 'infantil', 'pizzetas'] },
-      { id: 'sushi', label: 'Extra — Sushi libre', claves: ['sushi'] },
+      { id: 'op4', label: 'Opción 4 — Barcos de sushi', claves: ['sushi', 'barco de sushi', 'barcos de sushi'] },
+      { id: 'op5', label: 'Opción 5 — Picadas', claves: ['picada', 'picadas', 'tablas'] },
+      { id: 'op6', label: 'Opción 6 — Servicio de té', claves: ['servicio de te', 'merienda', 'sandwich', 'scon', 'medialuna'] },
+      { id: 'op7', label: 'Opción 7 — Mesa dulce', claves: ['mesa dulce', 'panqueque'] },
+      { id: 'op8', label: 'Opción 8 — Kids', claves: ['kids', 'infantil', 'pizzetas'] },
+      
       // Al seleccionarlo aparece un campo de texto libre
       {
         id: 'otro_catering',
-        label: 'Otro',
+        label: 'Opción 9 — Personalizado',
         claves: [],
         conTexto: true,
         placeholder: 'Contanos qué comida te gustaría para tu evento',

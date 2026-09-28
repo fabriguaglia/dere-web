@@ -152,9 +152,6 @@ export default function Armado() {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  const aireLibreSeleccionado = (seleccion.lugar || []).includes('aire_libre');
-  const posadaSeleccionada = (seleccion.lugar || []).includes('posada');
-
   // El popup cambia según si el cliente llegó con una idea del
   // buscador o entró directo (sin texto)
   const huboIdea = Boolean(textoInicial.trim());
@@ -255,25 +252,6 @@ export default function Armado() {
           <Fragment key={s.id}>
             <fieldset className="ar-seccion">
               <legend className="ar-seccion__titulo">{s.titulo}</legend>
-
-              {/* Recomendación del negocio para aire libre, con botón
-                  para sumar la posada al pedido */}
-              {s.id === 'lugar' && aireLibreSeleccionado && (
-                <div className="ar-seccion__nota">
-                  <p className="ar-seccion__nota-texto">
-                    Para eventos al aire libre solemos recomendar
-                    <strong> Posada Los Molles (Entre Ríos)</strong>.
-                  </p>
-                  <button
-                    type="button"
-                    className={`ar-seccion__nota-btn${posadaSeleccionada ? ' is-agregada' : ''}`}
-                    onClick={() => toggle('lugar', 'posada')}
-                    aria-pressed={posadaSeleccionada}
-                  >
-                    {posadaSeleccionada ? 'Agregada — quitar del pedido' : '+ Agregar al pedido'}
-                  </button>
-                </div>
-              )}
 
               <div className="ar-opciones">
                 {s.opciones.map((op) => {
