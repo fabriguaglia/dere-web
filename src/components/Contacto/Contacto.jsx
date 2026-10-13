@@ -4,10 +4,10 @@ import { NUMERO_WHATSAPP } from '../../data/opciones';
 
 // Datos del negocio — reemplazar por los reales
 const CONTACTO = {
-  telefono: '+00 000 000 0000',
-  telefonoHref: 'tel:+000000000000',
-  mail: 'contacto@desidere.com',
-  instagram: '@desidere.eventos',
+  telefono: '+54 9 11 5840 3685',
+  telefonoHref: 'tel:+541158403685',
+  mail: 'xxxx@xxxx.com',
+  instagram: '@xxxx.xxxx',
   instagramHref: 'https://instagram.com/desidere.eventos',
 };
 

@@ -15,7 +15,7 @@
 
 // ← REEMPLAZAR por el WhatsApp real del encargado
 // Formato internacional: código de país + número, sin +, sin 0 ni 15
-export const NUMERO_WHATSAPP = '5491127907744';
+export const NUMERO_WHATSAPP = '5491158403685';
 
 export const SECCIONES = [
   {
