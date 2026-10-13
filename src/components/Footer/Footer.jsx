@@ -31,9 +31,9 @@ const NAVEGACION = [
 const CONTACTO = {
   telefono: '+54 9 11 5840 3685',
   telefonoHref: 'tel:+541158403685',
-  mail: 'xxxx@xxxx.com',
-  instagram: '@xxxx.xxxx',
-  instagramHref: 'https://instagram.com/xxxx.xxxx',
+  mail: 'eventosdesidere@gmail.com',
+  instagram: '@desidere.eventos',
+  instagramHref: 'https://instagram.com/desidere.eventos',
 };
 
 export default function Footer() {
