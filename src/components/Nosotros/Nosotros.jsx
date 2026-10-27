@@ -78,8 +78,7 @@ export default function Nosotros() {
           <p className="ns-historia__texto">
             Así creamos una propuesta de organización integral: nos ocupamos
             del catering, la decoración, la coordinación y todo lo que esté
-            entre medio — desde la cata de vinos hasta la máquina de
-            pochoclos — para que ustedes solo tengan que disfrutar.
+            entre medio para que ustedes solo tengan que disfrutar.
           </p>
         </div>
         {/* Imagen opcional: si el archivo no existe, se ve el bloque crema */}
